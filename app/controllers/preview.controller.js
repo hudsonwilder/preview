@@ -91,7 +91,8 @@ var sendConfirmationEmail = function( host, member ) {
   	var email = member.address.toLowerCase(),
   		hash = md5( email, salt ),
   		url = "http://" + host + "/preview/thankyou/?c=" + hash + "&e=" + email,
-  		msg = '<p>Hello, please confirm you want to receive marketing emails from Hudson Wilder by clicking on the below link </p><p><a href="' + url + '" target="_blank">Join us</a></p>';
+  		unsubscribeURL = "http://" + host + "/preview/unsubscribe/?e=" + email,
+  		msg = '<p>Hello, please confirm you want to receive marketing emails from Hudson Wilder by clicking on the below link </p><p><a href="' + url + '" target="_blank">Join us</a></p><br><p><a href="' + unsubscribeURL + '" target="_blank">Unsubscribe</a></p>';
 
 	var data = {
 		from: 'Hudson Wilder <confirmation@hudsonwilder.com>',
@@ -149,7 +150,8 @@ exports.thankyou.render = function( req, res ) {
 var sendCompleteEmail = function ( host, body ) {
 	// normalize email address for delivery and construct message
   	var email = body.member.address.toLowerCase(),
-  		msg = '<p>Thank you for signing up!</p>';
+  		unsubscribeURL = "http://" + host + "/preview/unsubscribe/?e=" + email,
+  		msg = '<p>Thank you for signing up!</p><br><p><a href="' + unsubscribeURL + '" target="_blank">Unsubscribe</a></p>';
 
   	// build email
 	var data = {
@@ -165,84 +167,94 @@ var sendCompleteEmail = function ( host, body ) {
 };
 
 // Placeholder for thankyou methods
-// exports.unsubscribe = {};
+exports.unsubscribe = {};
 
 // renders page for users coming from unsubscribe email link
-// exports.unsubscribe.render = function( req, res ) {
-// 	var email = req.query.e !== undefined ? req.query.e.toLowerCase() : '';
+exports.unsubscribe.render = function( req, res ) {
+	var email = req.query.e !== undefined ? req.query.e.toLowerCase() : '';
 
-// 	// render page for unsubscribe
-//   	res.render( 'unsubscribe.view.jade', {
-// 		email: email
-// 	} );
-// };
+	// render page for unsubscribe
+  	res.render( 'unsubscribe.view.jade', {
+		email: email
+	} );
+};
 
 // Create a new 'unsubscribe' controller method
-// exports.unsubscribe.unsubscribe = function( req, res ) {
-// 	// validate the input
-//     req.checkBody( 'email', 'Email is required' ).notEmpty();
-//   	req.checkBody( 'email', 'Email does not appear to be valid' ).isEmail();
+exports.unsubscribe.unsubscribe = function( req, res ) {
+	// validate the input
+    req.checkBody( 'email', 'Email is required' ).notEmpty();
+  	req.checkBody( 'email', 'Email does not appear to be valid' ).isEmail();
 
-//   	// check the validation object for errors
-//   	var errors = req.validationErrors();
-//   	var email = req.body.email.toLowerCase();
+  	// check the validation object for errors
+  	var errors = req.validationErrors();
+  	var email = req.body.email.toLowerCase();
 
-//   	if ( errors ) {
-//   		// create response for errors and send
-//   		var json_res = { flash: { success: false, messages: errors }, email: email };
+  	if ( errors ) {
+  		// create response for errors and send
+  		var json_res = { flash: { success: false, messages: errors }, email: email };
 
-//   		sendUnsubscribeResponse( req, res, json_res );
-//   	} else {
-//   		// unsubscribe user and send back response
+  		sendUnsubscribeResponse( req, res, json_res );
+  	} else {
+  		// unsubscribe user and send back response
 
-// 		// mailing list
-// 		var list = mailgun.lists( config.mailgunOptions.mailing_list_address );
+		// mailing list
+		var list = mailgun.lists( config.mailgunOptions.mailing_list_address );
 
-// 		// remove user from the list
-// 		list.members(email).delete( function( err, data ) {
-// 			onUnsubscribeResponse( req, res, err, data ); 
-// 		} );
-//   	}
-// };
+		// remove user from the list
+		list.members(email).delete( function( err, data ) {
+			onUnsubscribeResponse( req, res, err, data ); 
+		} );
+  	}
+};
 
 // method for either rendering the view for a brower or JSON for ajax request
-// var sendUnsubscribeResponse = function( req, res, json_res ) {
-//   	var is_ajax_request = req.xhr;
+var sendUnsubscribeResponse = function( req, res, json_res ) {
+  	var is_ajax_request = req.xhr;
 
-//   	// if ajax request, respond with json, otherwise render template with errors
-//   	if ( is_ajax_request ) {
-//   		res.json( json_res.flash );
-//   	} else {
-//   		res.render( 'unsubscribe.view.jade', json_res );
-//   	}
-// }; 
+  	// if ajax request, respond with json, otherwise render template with errors
+  	if ( is_ajax_request ) {
+  		res.json( json_res.flash );
+  	} else {
+  		res.render( 'unsubscribe.view.jade', json_res );
+  	}
+}; 
 
 // callback for mailgun service when user is unsubscribed
-// var onUnsubscribeResponse = function( req, res, err, data ) {
-// 	console.log(err);
-// 	console.log(data);
+var onUnsubscribeResponse = function( req, res, err, data ) {
+	// create the JSON response
+	var json_res;
 
-// 	// create the JSON response
-// 	var json_res;
-
-//     if ( err !== undefined ) {
-//     	// there's an error from the mail service.
-//     	var errors = [ { param: 'email', msg: 'Subscription not found.', value: '' } ];
+    if ( err !== undefined ) {
+    	// there's an error from the mail service.
+    	var errors = [ { param: 'email', msg: 'Subscription not found.', value: '' } ];
     	
-//     	json_res = { flash: { success: false, messages: errors } };	
-//     } else {
-//     	// prepare successful JSON response and send confirmation email
+    	json_res = { flash: { success: false, messages: errors } };	
+    } else {
+    	// prepare successful JSON response and add to unsubscribe list
 
-//     	// successful removal.
-//     	json_res = { flash: { success: true, messages: [ { msg: 'You have been removed.' } ] } };
-//     }
+    	// mailing list
+		var unsubscribers = mailgun.unsubscribes();
 
-//     // clear out the email
-//     json_res.email = '';
+		// user
+  		var unsubscriber = {
+			address: req.body.email.toLowerCase(),
+			tag: '*'
+		};
 
-//     // deliver the response
-//     sendUnsubscribeResponse( req, res, json_res );
-// };
+		// add to list
+		unsubscribers.create(unsubscriber, function( err, data ) { 
+		} );
+
+    	// successful removal.
+    	json_res = { flash: { success: true, messages: [ { msg: 'You have been removed.' } ] } };
+    }
+
+    // clear out the email
+    json_res.email = '';
+
+    // deliver the response
+    sendUnsubscribeResponse( req, res, json_res );
+};
 
 
 

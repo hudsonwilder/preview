@@ -13,7 +13,7 @@ var express = require('./config/express');
 // Create a new Express application instance
 var app = express();
 
-// Use the Express application instance to listen to the '3000' port
+// Use the Express application instance to listen to the '8080' port
 app.listen(port);
 
 // Log the server status to the console

@@ -13,7 +13,7 @@ module.exports = function( app ) {
 	// Mount the 'preview' controller's 'thankyou.render' method
 	app.get( '/preview/thankyou', preview.thankyou.render );
 	// Mount the 'preview' controller's  'unsubscribe.render' method
-	//app.get( '/preview/unsubscribe', preview.unsubscribe.render );
+	app.get( '/preview/unsubscribe', preview.unsubscribe.render );
 	// Mount the 'preview' controller's 'unsubscribe' method
-	//app.post( '/preview/unsubscribe', preview.unsubscribe.unsubscribe );
+	app.post( '/preview/unsubscribe', preview.unsubscribe.unsubscribe );
 };
