@@ -10,6 +10,10 @@ module.exports = function( app ) {
 	app.get( '/preview', preview.render );
 	// Mount the 'preview' controller's 'subscribe' method
 	app.post( '/preview', preview.subscribe );
-	// Mount the 'preview' controller's 'thankyourender' method
+	// Mount the 'preview' controller's 'thankyou.render' method
 	app.get( '/preview/thankyou', preview.thankyou.render );
+	// Mount the 'preview' controller's  'unsubscribe.render' method
+	//app.get( '/preview/unsubscribe', preview.unsubscribe.render );
+	// Mount the 'preview' controller's 'unsubscribe' method
+	//app.post( '/preview/unsubscribe', preview.unsubscribe.unsubscribe );
 };

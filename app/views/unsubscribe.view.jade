@@ -1,0 +1,22 @@
+doctype
+html
+	head
+		title Hudson Wilder Unsubscribe
+		link(rel='stylesheet', href='css/style.css')
+	body
+		header
+			h1 Hudson Wilder Unsubscribe
+		form(method="post")
+			p
+				label(for="email") Email:
+					input(type="text", name="email", value="#{email}")
+			p.buttons
+				input(type="submit", value="Unsubscribe")
+		if flash
+			div
+				ul
+				- for (var i = 0; i < flash.messages.length; i++) {
+					li #{flash.messages[i].msg}
+				- }
+				ul
+		script(type='text/javascript', src='js/main.js')
