@@ -1,0 +1,25 @@
+doctype
+html
+	head
+		title Hudson Wilder Preview Signup
+		link(rel='stylesheet', href='css/style.css')
+	body
+		header
+			h1 Hudson Wilder Preview Signup
+		form(method="post")
+			p
+				label(for="email") Email:
+					input(type="text", name="email", value="")
+			p
+				label(for="zipcode") Zipcode:
+					input(type="text", name="zipcode", value="")
+			p.buttons
+				input(type="submit", value="Subscribe")
+		if flash
+			div
+				ul
+				- for (var i = 0; i < flash.messages.length; i++) {
+					li #{flash.messages[i].msg}
+				- }
+				ul
+		script(type='text/javascript', src='js/main.js')

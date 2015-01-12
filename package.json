@@ -1,0 +1,24 @@
+{
+  "name": "hudsonwilder",
+  "version": "0.0.1",
+  "description": "Hudson Wilder brand site",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Nida",
+  "license": "MIT",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "method-override": "^2.3.1",
+    "morgan": "^1.5.1",
+    "compression": "^1.3.0",
+    "express-session": "^1.9.3",
+    "express": "^4.10.7",
+    "body-parser": "^1.10.1",
+    "jade": "^1.8.2",
+    "mailgun-js": "^0.6.7",
+    "express-validator": "^2.8.0",
+    "blueimp-md5": "^1.1.0"
+  }
+}
