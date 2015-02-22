@@ -21,5 +21,7 @@
     "mailgun-js": "^0.6.7",
     "express-validator": "^2.8.0",
     "blueimp-md5": "^1.1.0"
+  },
+  "devDependencies": {
   }
 }

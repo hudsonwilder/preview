@@ -1,0 +1,29 @@
+header {
+
+	width: 31.5em;
+	padding-top: 4em;
+
+	background: {
+      image: image-url("hudson-logo.png");
+      repeat: no-repeat;
+      position: center top;
+    }
+
+    @include background-size(100% auto);
+
+    position: absolute;
+    top: 11em;
+    left: 50%;
+
+    @include transform( translate( -50%, -50% ) );
+
+    h1 {
+    	width: 100%;
+    	text-align: center;
+    	text-transform: uppercase;
+    	color: #000000;
+    	font-family: "ProximaNova Bold";
+    	font-size: 1.6em;
+    	letter-spacing: .15em;
+    }
+}

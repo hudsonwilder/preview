@@ -1,25 +1,51 @@
 doctype
 html
 	head
-		title Hudson Wilder Preview Signup
-		link(rel='stylesheet', href='css/style.css')
+		meta(name='viewport', content='initial-scale=1, minimum-scale=1, width=device-width, user-scalable=no')
+		title Hudson Wilder Discovery to Dish
+		link(rel='stylesheet', href='css/master.css')
 	body
-		header
-			h1 Hudson Wilder Preview Signup
-		form(method="post")
-			p
-				label(for="email") Email:
-					input(type="text", name="email", value="")
-			p
-				label(for="zipcode") Zipcode:
-					input(type="text", name="zipcode", value="")
-			p.buttons
-				input(type="submit", value="Subscribe")
-		if flash
-			div
+		#content
+			header
+				h1 discovery to dish
+			form(method="post")
+				fieldset
+					legend
+						p.mission Crafting a delicious experience for the urban epicurean. Each week recieve the finest foods from farms, purveyors and artisans, near and far.
+						p.coming coming this fall
+						p.intro Be first to discover, gather, and feast.
+					.fields
+						input(type="text", name="email", value="", placeholder="Email")
+						input(type="text", name="zipcode", value="", placeholder="Zip Code")
+					.error
+					.submit sign up
+			footer
 				ul
-				- for (var i = 0; i < flash.messages.length; i++) {
-					li #{flash.messages[i].msg}
-				- }
-				ul
+					li.instagram
+						a(href="#")
+					li.facebook
+						a(href="#")
+					li.twitter
+						a(href="#")
+					li.pinterest
+						a(href="#")
+				.contact
+					a(href="mailto:heyhudson@hudsonwilder.com") heyhudson&commat;hudsonwilder.com
+				.copyright &copy; 2015 Hudson Wilder&mdash;Discovery To Dish&trade;
+		//- form(method="post")
+		//-	p
+		//- 		label(for="email") Email:
+		//-			input(type="text", name="email", value="")
+		//-	p
+		//-		label(for="zipcode") Zipcode:
+		//-			input(type="text", name="zipcode", value="")
+		//-	p.buttons
+		//-		input(type="submit", value="Subscribe")
+		//- if flash
+		//-	div
+		//-		ul
+		//-		- for (var i = 0; i < flash.messages.length; i++) {
+		//-			li #{flash.messages[i].msg}
+		//-		- }
+		//-		ul
 		script(type='text/javascript', src='js/main.js')
