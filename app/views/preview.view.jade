@@ -3,7 +3,7 @@ html
 	head
 		meta(name='viewport', content='initial-scale=1, minimum-scale=1, width=device-width, user-scalable=no')
 		title Hudson Wilder Discovery to Dish
-		link(rel='stylesheet', href='css/master.css')
+		link(rel='stylesheet', href='/preview/css/master.css')
 	body
 		#content
 			header
@@ -15,10 +15,10 @@ html
 						p.coming coming this fall
 						p.intro Be first to discover, gather, and feast.
 					.fields
-						input(type="text", name="email", value="", placeholder="Email")
-						input(type="text", name="zipcode", value="", placeholder="Zip Code")
+						input(type="email", name="email", value="", placeholder="Email")
+						input(type="number", name="zipcode", value="", placeholder="Zip Code")
 					.error
-					.submit sign up
+					input.submit(type="submit", value="sign up")
 			footer
 				ul
 					li.instagram
@@ -48,4 +48,4 @@ html
 		//-			li #{flash.messages[i].msg}
 		//-		- }
 		//-		ul
-		script(type='text/javascript', src='js/main.js')
+		script(type='text/javascript', src='/preview/js/main.js')

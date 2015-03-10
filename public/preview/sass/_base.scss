@@ -16,3 +16,14 @@ html, body {
 
     @include background-size(cover);
 }
+
+@media only screen and (max-device-width : 750px) {
+	#content {
+		background: {
+	      image: image-url("background-mobile.jpg");
+	    }
+
+	    padding-top: 125px;
+	    height: auto;
+	}
+}

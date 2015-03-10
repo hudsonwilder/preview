@@ -57,6 +57,10 @@ form {
 				margin: 0 20px 0 20px;
 				padding: 0 0 0 12px;
 				border: none;
+
+				&:focus {
+					outline: none !important;
+				}
 	    	}
     	}
 
@@ -81,11 +85,71 @@ form {
     		font-family: "ProximaNova Bold";
     		color: #ffffff;
     		font-size: 1.05em;
+    		background-color: transparent;
+    		border: none;
     		border-bottom: solid #ceb02d 3px;
-    		width: 90px;
+    		text-align:center;
+    		width: auto;
     		text-transform: uppercase;
     		letter-spacing: .2em;
     		cursor: pointer;
+    		display: block;
     	}
     }
+}
+
+@media only screen and (max-device-width : 750px) {
+	form {
+		position: inherit;
+	    top: 0%;
+	    left: 0%;
+
+	    @include transform( translate( 0%, 0% ) );
+
+	    margin-top: 20%;
+
+	    padding-bottom: 4em;
+
+	    fieldset legend p.mission{
+			font-size: 4.5vw;
+			width: 67%;
+			padding-top: 8%;
+			line-height: 1.5em;
+    	}
+
+    	fieldset legend p.coming{
+			font-size: 3.0vw;
+			padding-top: 3.5em;
+    	}
+
+    	fieldset legend p.intro{
+			font-size: 4.0vw;
+			padding-top: 2.5em;
+			padding-bottom: 2.5em;
+    	}
+
+    	fieldset .fields {
+    		width: 100%;
+    		margin-top: 0;
+
+    		input {
+    			font-family: "Brandon Reg";
+    			color: #ceb02d;
+    			font-size: 5.0vw;
+				width: 70%;
+				height: 2.35em;
+				margin: 0.9em 15%;
+				-webkit-appearance: none;
+				-webkit-border-radius: 0;
+	    	}
+    	}
+
+    	fieldset .submit {
+    		margin-top: 0;
+    		margin-bottom: 0;
+    		font-size: 2.9vw;
+    		-webkit-appearance: none;
+			-webkit-border-radius: 0;
+    	}
+	}
 }
